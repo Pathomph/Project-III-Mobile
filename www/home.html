@@ -113,25 +113,25 @@
     </template>
 
     <template id="tab3.html">
-            <ons-page>
-        
-              <div id="profile"></div>
-              <script id="product_template" type="text/template"> 
+        <ons-page>
+
+            <div id="datacar"></div>
+            <script id="product_template" type="text/template">
          <ons-row>
-                <% profile.forEach(function(profile){
-                  var profile = profile.data();
+                <% datacar.forEach(function(datacar){
+                  var datacar = datacar.data();
                   %>
         <ons-list-header>Thumbnails and titles</ons-list-header>
             <ons-list-item>
               <div class="left">
-                  <ons-card onclick="detail('<%= profile.profile %>')"  >
-                <img class="" src="<%= profile.drivercrad %>" width="99%" height="80px"><br>
+                  <ons-card onclick="detail('<%- datacar.id %>')"  >
+                <img class="" src="<%= datacar.photo[0] %>" width="99%" height="80px"><br>
               </div>
               <div class="center">
-                <span class="list-item__title">ป้ายทะเบียน : <%= profile.numbercar %></span>
-                <span class="list-item__subtitle">ID :<%= profile.profile %></span><span class="list-item__subtitle">ชื่อ :<%= profile.name %></span>
-                <span class="list-item__subtitle">เบอร์โทรศัพท์ :<%= profile.numberphon %></span>
-                <span class="list-item__subtitle">E-mail: <%= profile.email %></span><span class="list-item__subtitle">Point : <%= profile.point %></span>
+                <span class="list-item__title">ป้ายทะเบียน : <%= datacar.Licenseplate %></span><span class="list-item__subtitle">ประเภทรถ :<%= datacar.category %></span>
+                <span class="list-item__subtitle">ID :<%= datacar.id %></span><span class="list-item__subtitle">ชื่อ :<%= datacar.name %></span>
+                <span class="list-item__subtitle">รหัสนักศึกษา :<%= datacar.sid %></span>
+                <span class="list-item__subtitle">สาขา: <%= datacar.Major %></span><span class="list-item__subtitle">ยี่ห้อรถ : <%= datacar.brand %></span>
                
               </div>
             </ons-list-item>
@@ -142,10 +142,12 @@
          
         
         </Script>
-              </div>
         
-            </ons-page>
-          </template>
+            </div>
+
+        </ons-page>
+    </template>
+
     <template id="tab4.html">
         <p style="text-align: center; margin-bottom: 3px;">
             scan
@@ -154,60 +156,61 @@
             </div>
 
     </template>
-   
+
 
 
 </body>
 <script>
-    
 
-        function getproductData(name) {
-      console.log(name);
-      if (name == null) {
-        db.collection("profile").get()
-          .then(function (querySnapshot) {
-            // doc.data() is never undefined for query doc snapshots
-            var product_template = $('#product_template').html();
-            console.log(querySnapshot.docs);
-            var html = ejs.render(product_template, { profile: querySnapshot.docs });
-            $('#profile').html(html);
-          })
-          .catch(function (error) {
-            console.log("Error getting documents: ", error);
-          });
-      } else {
-        db.collection("profile").where("name", "==",name).get()
-          .then(function (querySnapshot) {console.log(querySnapshot.docs);
-            if (querySnapshot.docs.length == 0) {
-              var html = "ไม่มีสินค้าที่คุณเลือก"
-              db.collection("profile").get()
+
+    function getproductData(name) {
+        console.log(name);
+        if (name == null) {
+            db.collection("DATACAR").get()
                 .then(function (querySnapshot) {
-                  // doc.data() is never undefined for query doc snapshots
-                  var product_template = $('#product_template').html();
-                  console.log(querySnapshot.docs);
-                  html += ejs.render(product_template, { profile: querySnapshot.docs });
-                  $('#profile').html(html);
+                    // doc.data() is never undefined for query doc snapshots
+                    var product_template = $('#product_template').html();
+                    console.log(querySnapshot.docs);
+                    var html = ejs.render(product_template, { datacar: querySnapshot.docs });
+                    $('#datacar').html(html);
                 })
                 .catch(function (error) {
-                  console.log("Error getting documents: ", error);
+                    console.log("Error getting documents: ", error);
                 });
-            } else {
-              db.collection("profile").where("name", "==", name).get()
+        } else {
+            db.collection("DATACAR").where("category", "==", name).get()
                 .then(function (querySnapshot) {
-                  // doc.data() is never undefined for query doc snapshots
-                  console.log(querySnapshot.docs);
-                  var product_template = $('#product_template').html();
-                  var html = ejs.render(product_template, { profile: querySnapshot.docs });
-                  $('#profile').html(html);
+                    console.log(querySnapshot.docs);
+                    if (querySnapshot.docs.length == 0) {
+                        var html = "ไม่มีสินค้าที่คุณเลือก"
+                        db.collection("DATACAR").get()
+                            .then(function (querySnapshot) {
+                                // doc.data() is never undefined for query doc snapshots
+                                var product_template = $('#product_template').html();
+                                console.log(querySnapshot.docs);
+                                html += ejs.render(product_template, { datacar: querySnapshot.docs });
+                                $('#datacar').html(html);
+                            })
+                            .catch(function (error) {
+                                console.log("Error getting documents: ", error);
+                            });
+                    } else {
+                        db.collection("DATACAR").where("category", "==", name).get()
+                            .then(function (querySnapshot) {
+                                // doc.data() is never undefined for query doc snapshots
+                                console.log(querySnapshot.docs);
+                                var product_template = $('#product_template').html();
+                                var html = ejs.render(product_template, { datacar: querySnapshot.docs });
+                                $('#datacar').html(html);
+                            })
+                            .catch(function (error) {
+                                console.log("Error getting documents: ", error);
+                            });
+                    }
+
                 })
-                .catch(function (error) {
-                  console.log("Error getting documents: ", error);
-                });
-            }
-          
-          })
-      }
+        }
     }
-    </script>
+</script>
 
 </html>
