@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="ejs.js"></script>
+    
+    <script src="cordova.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCutay0Jwul1EBCSHPWo3L5VquMcDEJas8",
+            authDomain: "psu-vehicle.firebaseapp.com",
+            databaseURL: "https://psu-vehicle.firebaseio.com",
+            projectId: "psu-vehicle",
+            storageBucket: "psu-vehicle.appspot.com",
+            messagingSenderId: "120118808842"
+        };
+        firebase.initializeApp(config);
+
+    </script>
+     <style>
+            img {
+              border-radius: 10px;
+            }
+            </style>
+</head>
+
+
+<body>
+
+        <ons-navigator swipeable id="myNavigator">
+                <ons-page>
+                        <ons-toolbar style="background:rgb(129, 129, 129);">
+                                <div class="center" id="appname">
+                                    PSU VEHICLE FOR OFFICER
+                                </div>
+                        
+                                <div class="right">
+                                    <ons-icon class="toolbaricon" size="30px" icon="fa-cogs" onclick="window.location.href='logout.html'">
+                                    </ons-icon>
+                        
+                                </div>
+                            </ons-toolbar>
+<br>
+<br>
+<center><img src="img/scan.png" width="300" height="300" onclick="window.location.href='scan.html'"></center>
+
+
+
+</body>
+
+</html>

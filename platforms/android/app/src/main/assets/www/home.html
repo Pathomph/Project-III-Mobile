@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+    <script src="ejs.js"></script>
+    <script src="cordova.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCutay0Jwul1EBCSHPWo3L5VquMcDEJas8",
+            authDomain: "psu-vehicle.firebaseapp.com",
+            databaseURL: "https://psu-vehicle.firebaseio.com",
+            projectId: "psu-vehicle",
+            storageBucket: "psu-vehicle.appspot.com",
+            messagingSenderId: "120118808842"
+        };
+        firebase.initializeApp(config);
+        // Initialize Cloud Firestore through Firebase
+        var db = firebase.firestore();
+        // Disable deprecated features
+        db.settings({
+            timestampsInSnapshots: true
+        });
+    </script>
+    <style>
+        .toolbaricon {
+            padding-left: 5px;
+            padding-bottom: 5px;
+            padding-right: 5px;
+            color: rgb(149, 210, 215);
+        }
+
+
+        .button {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button3 {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div>
+        <ons-navigator swipeable id="myNavigator" width="300px">
+            <ons-page>
+                <ons-toolbar style="background:rgb(129, 129, 129);">
+                    <div class="left">
+                        <ons-icon class="toolbaricon" size="30px" icon="fa-expand" onclick="window.location.href='scan.html'">
+                        </ons-icon>
+                    </div>
+
+                    <div class="center" id="appname">
+                        PSU VEHICLE
+                    </div>
+
+                    <div class="right">
+                        <ons-icon class="toolbaricon" size="30px" icon="fa-cogs" onclick="window.location.href='logout.html'">
+                        </ons-icon>
+
+                    </div>
+                </ons-toolbar>
+                <ons-tabbar swipeable position="auto" id="tabbar">
+                    <ons-tab page="tab1.html" label="Home" icon="ion-home, material:md-home" active style="background:rgb(129, 129, 129);">
+                    </ons-tab>
+                    <ons-tab page="tab2.html" label="Massage" icon="fa-envelope" active-icon="fa-envelope-open" style="background:rgb(129, 129, 129)">
+                    </ons-tab>
+                    <ons-tab page="tab3.html" label="Profile" icon="fa-user-alt" active-icon="fa-user" style="background:rgb(129, 129, 129)">
+                    </ons-tab>
+
+                </ons-tabbar>
+            </ons-page>
+        </ons-navigator>
+    </div>
+    <template id="tab1.html">
+        <ons-page id="Tab1">
+            <ons-carousel swipeable auto-scroll overscrollable id="carousel" style="height: 800px;">
+                <ons-carousel-item id="carousel1" style="background: url('img/Logo-PSU-TH-01.png') no-repeat center; background-size: contain;"
+                    style="background:#CC6600;">
+                </ons-carousel-item>
+                <ons-carousel-item id="carousel2" style="background: url('img/p.jpg') no-repeat center; background-size: contain;"
+                    style="background:#CC6600;">
+                </ons-carousel-item>
+                <ons-carousel-item id="carousel3" style="background: url('http://www.timesignsmfg.com/sites/default/files/R6-1.png?fbclid=IwAR0Tn9QZjfpWUmzPIbd6aIuRqjnnxvgYQL4aQ1AUTvY8SL11RQURs9i0ncE') no-repeat center; background-size: contain;"
+                    style="background:#CC6600;">
+                </ons-carousel-item>
+            </ons-carousel>
+        </ons-page>
+    </template>
+    <template id="tab2.html">
+
+    </template>
+
+    <template id="tab3.html">
+        <p style="text-align: center; margin-bottom: 3px;">
+            Profile
+            <div id="profile">
+
+            </div>
+
+    </template>
+    <template id="tab4.html">
+        <p style="text-align: center; margin-bottom: 3px;">
+            scan
+            <div id="show">
+
+            </div>
+
+    </template>
+   
+
+
+</body>
+<script>
+    function showProfile(name, studentID, numberphone, numbercar, point, drivercard) {
+        console.log(name, studentID, numberphone, numbercar, point, drivercard);
+        var data = '("Name":' + '"' + name + '"' + ',"StudentID":' + '"' + studentID + '"' + ',"Phonenumber":' + '"' + numberphone + '"' + ',"License plate":' + '"' + numbercar + '"' + ',"Point":' + '"' + point + '"' + ',"driver license":' + '"' + drivercard + '"' + ')';
+
+        localStorage.setItem("showProfile", showProfile);
+        localStorage.setItem("data", data);
+        window.location.href = 'profile';
+    }</script>
+
+</html>

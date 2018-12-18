@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="ejs.js"></script>
+    <script src="cordova.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCutay0Jwul1EBCSHPWo3L5VquMcDEJas8",
+    authDomain: "psu-vehicle.firebaseapp.com",
+    databaseURL: "https://psu-vehicle.firebaseio.com",
+    projectId: "psu-vehicle",
+    storageBucket: "psu-vehicle.appspot.com",
+    messagingSenderId: "120118808842"
+  };
+  firebase.initializeApp(config);
+</script>
+    <style>
+        .toolbaricon {
+            padding-left: 5px;
+            padding-bottom: 5px;
+            padding-right: 5px;
+            color: orange;
+        }
+        #mypage .page__background {
+            background-image: url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/4p9r2Jdtlik3ltjkx/videoblocks-blurred-abstract-background-traffic-cars-on-the-street-at-dusk-blue-color-the-motion-of-blurred-abstract-spots-of-circular-shape-over-a-common-space_sdnizgstm_thumbnail-full01.png');
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <ons-page id='mypage'>
+        <div style="text-align: center; margin-top: 30px;">
+            <p>
+                <ons-input id="username" modifier="underbar" placeholder="Username" float></ons-input>
+            </p>
+            <p>
+                <ons-input id="password" modifier="underbar" type="password" placeholder="Password" float></ons-input>
+            </p>
+            <p style="margin-top: 30px;">
+                <ons-button style="background-color:rgb(49, 165, 231)" onclick="login()">Sign in</ons-button>
+            </p>
+           
+            
+
+        </div>
+    </ons-page>
+
+
+
+    <script>
+       
+        
+        var login = function () {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            firebase.auth().signInWithEmailAndPassword(username, password).catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(error.code + ':' + error.message);
+                ons.notification.alert('Login failed');
+            });
+        };
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                // User is signed in.
+                window.location.href = 'home.html';
+            }
+        });
+    </script>
+
+
+</body>
+
+</html>
